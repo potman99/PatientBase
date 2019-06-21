@@ -2,12 +2,15 @@ package adasda;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -16,9 +19,9 @@ import javax.swing.JTextField;
 
 public class AddUser extends JFrame implements ActionListener{
 
-	private JLabel name, lastName, peselNumber , adress,city ,phoneNumber, back , create;
+	private JLabel name, lastName, peselNumber , adress,city ,phoneNumber, icon , addUser;
 	private JTextField tName, tLastName , tPeselNumber, tAdress,tCity, tPhoneNumber;
-	private JPanel labels,texts;
+	private JPanel labels,texts, head;
 	private JButton butBack, butCreate;
 	
 	
@@ -91,10 +94,38 @@ public class AddUser extends JFrame implements ActionListener{
 		texts.add(tPhoneNumber);
 		texts.setBounds(400, 160,200, 500);
 		
-		butBack = new JButton();
-		butBack.setBounds(200, 600, 30, 30);
-		butBack.addActionListener(this);
 		
+		ImageIcon i2 = new ImageIcon("buttons\\back.png");
+		Image img2 = i2.getImage();
+		Image new_img2 = img2.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+		i2 = new ImageIcon(new_img2);
+		butBack = new JButton("Powrót",i2);
+		butBack.addActionListener(this);
+		butBack.setBounds(200, 600, 150, 50);
+		
+		
+		ImageIcon i3 = new ImageIcon("buttons\\plus.png");
+		Image img3 = i3.getImage();
+		Image new_img3 = img3.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+		i3 = new ImageIcon(new_img3);
+		butCreate = new JButton("Dodaj",i3);
+		butCreate.addActionListener(this);
+		butCreate.setBounds(400, 600, 150, 50);
+		
+		ImageIcon i4 = new ImageIcon("buttons\\add.png");
+		Image img4 = i4.getImage();
+		Image new_img4 = img4.getScaledInstance(64, 64, Image.SCALE_SMOOTH);
+		i3 = new ImageIcon(new_img4);
+		icon = new JLabel(i4);
+		icon.setBounds(50, 20, 100, 100);
+		
+		head = new JPanel();
+		head.setLayout(new FlowLayout(FlowLayout.LEFT));
+		head.add(icon);
+		head.setBounds(0,20,800,80);
+		
+		add(head);
+		add(butCreate);
 		add(labels);
 		add(texts);
 		add(butBack);
@@ -105,6 +136,8 @@ public class AddUser extends JFrame implements ActionListener{
 		if(e.getSource()==butBack)
 		{
 			setVisible(false);
+			Home home = new Home();
+			home.setVisible(true);
 		}
 		
 	}
