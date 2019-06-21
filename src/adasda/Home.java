@@ -2,6 +2,7 @@ package adasda;
 
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
 
@@ -13,6 +14,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 
 public class Home extends JFrame{
 	
@@ -24,8 +26,9 @@ public class Home extends JFrame{
 	
 	public Home() {
 	
+		Color bgColor = new Color(30,30,30);
 		setBounds(10, 10, 800, 700);
-		getContentPane().setBackground(Color.DARK_GRAY);
+		getContentPane().setBackground(bgColor);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLayout(null);
 		
@@ -50,7 +53,7 @@ public class Home extends JFrame{
 		displayButton = new JButton(i3);
 		
 		buttons = new JPanel();
-		buttons.setBackground(Color.darkGray);
+		buttons.setBackground(bgColor);
 		buttons.setLayout(new BoxLayout(buttons, BoxLayout.X_AXIS));
 		buttons.setBounds(100, 250, 600, 300);
 		buttons.add(addButton);
@@ -59,10 +62,29 @@ public class Home extends JFrame{
 		buttons.add(Box.createHorizontalStrut(40));
 		buttons.add(searchButton);
 		
+		addLabel = new JLabel("<html>Dodaj<br/>pacjenta</html>", SwingConstants.CENTER);;
+		searchLabel = new JLabel("Wyszukaj");
+		displayLabel = new JLabel("<html>Wyœwietl<br/> wszystkich</html>");
+		Font font = new Font("Arial" , Font.BOLD, 30);
+		
+		addLabel.setBounds(90, 480, 200, 100);
+		addLabel.setForeground(Color.white);
+		addLabel.setFont(font);
+		
+		
+		searchLabel.setBounds(335, 480, 200, 100);
+		searchLabel.setForeground(Color.white);
+		searchLabel.setFont(font);
+		
+		displayLabel.setBounds(540, 480, 200, 100);
+		displayLabel.setForeground(Color.white);
+		displayLabel.setFont(font);
+		
+		
+		add(searchLabel);
+		add(displayLabel);
+		add(addLabel);
 		add(buttons);
-		
-		
-		
 		setVisible(true);
 
 	}
