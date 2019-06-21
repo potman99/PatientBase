@@ -5,6 +5,8 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -16,8 +18,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-public class Home extends JFrame{
+public class Home extends JFrame implements ActionListener{
 	
+	AddUser frame;
 	JButton addButton,searchButton,displayButton;
 	JLabel addLabel,searchLabel,displayLabel;
 	JPanel buttons;
@@ -25,7 +28,6 @@ public class Home extends JFrame{
 	
 	
 	public Home() {
-	
 		Color bgColor = new Color(30,30,30);
 		setBounds(10, 10, 800, 700);
 		getContentPane().setBackground(bgColor);
@@ -37,20 +39,23 @@ public class Home extends JFrame{
 		Image new_img = img.getScaledInstance(140, 140, Image.SCALE_SMOOTH);
 		i = new ImageIcon(new_img);
 		addButton = new JButton(i);
+		addButton.addActionListener(this);
 		
 		
 		
-		ImageIcon i2 = new ImageIcon("buttons\\display.png");
+		ImageIcon i2 = new ImageIcon("buttons\\search.png");
 		Image img2 = i2.getImage();
 		Image new_img2 = img2.getScaledInstance(140, 140, Image.SCALE_SMOOTH);
 		i2 = new ImageIcon(new_img2);
 		searchButton = new JButton(i2);
+		searchButton.addActionListener(this);
 		
-		ImageIcon i3 = new ImageIcon("buttons\\search.png");
+		ImageIcon i3 = new ImageIcon("buttons\\display.png");
 		Image img3 = i3.getImage();
 		Image new_img3 = img3.getScaledInstance(140, 140, Image.SCALE_SMOOTH);
 		i3 = new ImageIcon(new_img3);
 		displayButton = new JButton(i3);
+		displayButton.addActionListener(this);
 		
 		buttons = new JPanel();
 		buttons.setBackground(bgColor);
@@ -72,11 +77,11 @@ public class Home extends JFrame{
 		addLabel.setFont(font);
 		
 		
-		searchLabel.setBounds(335, 480, 200, 100);
+		searchLabel.setBounds(540, 480, 200, 100);
 		searchLabel.setForeground(Color.white);
 		searchLabel.setFont(font);
 		
-		displayLabel.setBounds(540, 480, 200, 100);
+		displayLabel.setBounds(335, 480, 200, 100);
 		displayLabel.setForeground(Color.white);
 		displayLabel.setFont(font);
 		
@@ -86,11 +91,35 @@ public class Home extends JFrame{
 		add(addLabel);
 		add(buttons);
 		setVisible(true);
-
 	}
-	
-	
-	
+
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		
+		Object source = e.getSource();
+		if(source==addButton)
+		{
+		System.out.println("add");	
+		frame = new AddUser();
+		frame.setVisible(true);
+		setVisible(false);
+
+		
+		}
+		if(source==searchButton)
+		{
+			System.out.println("search");
+		}
+		if(source==displayButton)
+		{
+			System.out.println("display");
+		}
+		
+		
+	}
+
+
 	
 	}
 
