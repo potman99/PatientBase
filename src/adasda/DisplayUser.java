@@ -2,6 +2,8 @@ package adasda;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,16 +11,20 @@ import java.sql.Statement;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class DisplayUser extends JFrame implements LabelLook{
+public class DisplayUser extends JFrame implements LabelLook,ActionListener{
 	
 	private JLabel name, lastName, peselNumber , adress,city ,phoneNumber;
 	private JLabel pName , pLastName, pPeselNumber, pAdress, pCity, pPhoneNumber;
-	private JPanel panel = new JPanel();
+	private JPanel mainPanel = new JPanel();
+	private JPanel panel1 = new JPanel();
+	private JPanel panel2 = new JPanel();
+	private JButton butBack = new JButton("Powrót");
 	Connection conn = null;
 	Statement stmt = null;
 	ResultSet rs = null;
@@ -37,6 +43,13 @@ public class DisplayUser extends JFrame implements LabelLook{
 	city=new JLabel("Miasto");
 	phoneNumber=new JLabel("Telefon");
 	
+	pName=new JLabel();
+	pLastName=new JLabel();
+	pPeselNumber=new JLabel();
+	pAdress=new JLabel();
+	pCity=new JLabel();
+	pPhoneNumber=new JLabel();
+	
 	labelLook(adress);
 	labelLook(city);
 	labelLook(lastName);
@@ -51,24 +64,46 @@ public class DisplayUser extends JFrame implements LabelLook{
 	labelLook(pPeselNumber);
 	labelLook(pPhoneNumber);
 	
-	panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-	panel.setBounds(100, 50, 600, 500);
-	panel.setBackground(Color.LIGHT_GRAY);
-	panel.add(name);
-	panel.add(Box.createVerticalStrut(30));
-	panel.add(lastName);
-	panel.add(Box.createVerticalStrut(30));
-	panel.add(peselNumber);
-	panel.add(Box.createVerticalStrut(30));
-	panel.add(adress);
-	panel.add(Box.createVerticalStrut(30));
-	panel.add(city);
-	panel.add(Box.createVerticalStrut(30));
-	panel.add(phoneNumber);
+	panel1.setLayout(new BoxLayout(panel1, BoxLayout.Y_AXIS));
+	panel1.setBackground(Color.LIGHT_GRAY);
+	panel1.add(name);
+	panel1.add(Box.createVerticalStrut(30));
+	panel1.add(lastName);
+	panel1.add(Box.createVerticalStrut(30));
+	panel1.add(peselNumber);
+	panel1.add(Box.createVerticalStrut(30));
+	panel1.add(adress);
+	panel1.add(Box.createVerticalStrut(30));
+	panel1.add(city);
+	panel1.add(Box.createVerticalStrut(30));
+	panel1.add(phoneNumber);
 	
+	panel2.setLayout(new BoxLayout(panel2, BoxLayout.Y_AXIS));
+	panel2.setBackground(Color.LIGHT_GRAY);
+	panel2.add(pName);
+	panel2.add(Box.createVerticalStrut(30));
+	panel2.add(pLastName);
+	panel2.add(Box.createVerticalStrut(30));
+	panel2.add(pPeselNumber);
+	panel2.add(Box.createVerticalStrut(30));
+	panel2.add(pAdress);
+	panel2.add(Box.createVerticalStrut(30));
+	panel2.add(pCity);
+	panel2.add(Box.createVerticalStrut(30));
+	panel2.add(pPhoneNumber);
+	
+	mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.X_AXIS));
+	mainPanel.add(panel1);
+	mainPanel.add(panel2);
+	mainPanel.setBackground(Color.LIGHT_GRAY);
+	mainPanel.setBounds(100, 50, 600, 500);
+	
+	butBack.setBounds(300, 580, 100, 50);
+	butBack.addActionListener(this);
 
+	add(butBack);
+	add(mainPanel);
 	
-	add(panel);
 	}
 	
 	public void show(int row)
@@ -79,7 +114,8 @@ public class DisplayUser extends JFrame implements LabelLook{
 			rs=stmt.executeQuery(getName);
 			if(rs.next())
 			{
-				
+				pName.setText(rs.getString("name"));
+				pLastName.setText(rs.getString("lastname"));
 
 			}
 		} catch (SQLException e) {
@@ -93,13 +129,24 @@ public class DisplayUser extends JFrame implements LabelLook{
 	@Override
 	public void labelLook(JLabel label) {
 		label.setFont(new Font("Arial" , Font.BOLD, 30));
-		label.setForeground(Color.white);
+		label.setForeground(Color.BLACK);
 		label.setSize(200, 10);
 	}
 
 	@Override
 	public void textLook(JTextField text) {
 		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		
+		if(e.getSource()==butBack)
+		{
+			setVisible(false);
+			
+		}
 		
 	}
 
