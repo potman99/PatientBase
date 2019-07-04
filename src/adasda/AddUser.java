@@ -22,7 +22,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class AddUser extends JFrame implements ActionListener{
+public class AddUser extends JFrame implements ActionListener,LabelLook{
 
 	private JLabel name, lastName, peselNumber , adress,city ,phoneNumber, icon , addUser;
 	private JTextField tName, tLastName , tPeselNumber, tAdress,tCity, tPhoneNumber;
