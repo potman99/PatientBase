@@ -7,6 +7,10 @@ import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -14,6 +18,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -23,6 +28,9 @@ public class AddUser extends JFrame implements ActionListener{
 	private JTextField tName, tLastName , tPeselNumber, tAdress,tCity, tPhoneNumber;
 	private JPanel labels,texts, head;
 	private JButton butBack, butCreate;
+	Connection conn = null;
+	Statement stmt = null;
+	ResultSet rs = null;
 	
 	
 	public AddUser() {
@@ -140,6 +148,22 @@ public class AddUser extends JFrame implements ActionListener{
 			home.setVisible(true);
 		}
 		
+		if(e.getSource()==butCreate)
+		{
+			conn=DatabaseConnection.connection();
+			try {
+				stmt = conn.createStatement();
+				stmt.executeUpdate("INSERT INTO patients (name,lastname) values('"+tName.getText()+"','"+tLastName.getText()+"')");
+				JOptionPane.showMessageDialog(null, "Dodano Pacjenta");
+				this.setVisible(false);
+				Home home = new Home();
+				home.setVisible(true);
+				
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
 	}
 	
 	public void labelLook(JLabel label)

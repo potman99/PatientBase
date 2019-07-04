@@ -20,7 +20,7 @@ import javax.swing.SwingConstants;
 
 public class Home extends JFrame implements ActionListener{
 	
-	AddUser frame;
+	JFrame frame;
 	JButton addButton,searchButton,displayButton;
 	JLabel addLabel,searchLabel,displayLabel;
 	JPanel buttons;
@@ -113,7 +113,10 @@ public class Home extends JFrame implements ActionListener{
 		}
 		if(source==displayButton)
 		{
-			System.out.println("display");
+			frame=new ShowUsers();
+			frame.setVisible(true);
+			setVisible(false);
+			
 		}
 		
 		
