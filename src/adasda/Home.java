@@ -25,7 +25,7 @@ public class Home extends JFrame implements ActionListener{
 	JLabel addLabel,searchLabel,displayLabel;
 	JPanel buttons;
 	ImageIcon addIcon;
-	
+	private String displayAllSql = "SELECT id As 'ID', name AS 'Imie' ,lastname AS 'Nazwisko' FROM patients";
 	
 	public Home() {
 		Color bgColor = new Color(30,30,30);
@@ -110,10 +110,13 @@ public class Home extends JFrame implements ActionListener{
 		if(source==searchButton)
 		{
 			System.out.println("search");
+			frame = new SearchUser();
+			frame.setVisible(true);
+			setVisible(false);
 		}
 		if(source==displayButton)
 		{
-			frame=new ShowUsers();
+			frame=new ShowUsers(displayAllSql);
 			frame.setVisible(true);
 			setVisible(false);
 			

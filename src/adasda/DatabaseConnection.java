@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 
 import javax.swing.JOptionPane;
 
+
 public class DatabaseConnection {
 	
 	final static String JDBC_DRIVER="com.mysql.jdbc.Driver";

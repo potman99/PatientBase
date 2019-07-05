@@ -35,7 +35,7 @@ public class ShowUsers extends JFrame implements ActionListener,MouseListener{
 	Statement stmt= null;
 	ResultSet rs = null;
 	
-	public ShowUsers() 
+	public ShowUsers(String sql) 
 	{
 		
 	Color bgColor = new Color(30,30,30);
@@ -60,7 +60,7 @@ public class ShowUsers extends JFrame implements ActionListener,MouseListener{
 	
 	try {
 		stmt=con.createStatement();
-		rs=stmt.executeQuery("SELECT id As 'ID', name AS 'Imie' ,lastname AS 'Nazwisko' FROM patients");
+		rs=stmt.executeQuery(sql);
 		tab.setModel(DbUtils.resultSetToTableModel(rs));
 	} catch (SQLException e) {
 		
