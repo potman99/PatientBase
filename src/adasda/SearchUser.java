@@ -132,7 +132,7 @@ public class SearchUser extends JFrame implements ActionListener,LabelLook{
 				checkTextFields();
 				frame = new ShowUsers(sql);
 				frame.setVisible(true);
-				System.out.println(sql);
+				
 
 
 				

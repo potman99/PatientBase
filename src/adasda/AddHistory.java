@@ -4,6 +4,12 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.SimpleDateFormat;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -11,7 +17,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 
-import com.toedter.calendar.JCalendar;
 import com.toedter.calendar.JDateChooser;
 
 public class AddHistory extends JFrame implements ActionListener{
@@ -21,10 +26,15 @@ public class AddHistory extends JFrame implements ActionListener{
 		private JTextArea textArea = new JTextArea();
 		private JLabel lbDate, lbDescrition;
 		JDateChooser calendar = new JDateChooser();
+		SimpleDateFormat dcn = new SimpleDateFormat("yyyy-MM-dd");
+		Connection conn = null;
+		Statement stmt = null;
+		ResultSet rs = null;
+		private int id;
 
 	
-	public AddHistory() {
-		
+	public AddHistory(int id) {
+		this.id=id;
 		Color bgColor = new Color(30,30,30);
 		setBounds(10, 10, 800, 700);
 		getContentPane().setBackground(bgColor);
@@ -74,6 +84,21 @@ public class AddHistory extends JFrame implements ActionListener{
 				
 			}
 			
+		}
+		if(e.getSource()==butAccept)
+		{
+			conn = DatabaseConnection.connection();
+			try {
+				stmt = conn.createStatement();
+				String date = dcn.format(calendar.getDate());
+				stmt.executeUpdate("INSERT INTO history (id,date,description) VALUES ('"+id+"','"+date+"','"+textArea.getText()+"') ");
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+			JOptionPane.showMessageDialog(null, "Dodano wpis");
+			setVisible(false);
 		}
 		
 	}

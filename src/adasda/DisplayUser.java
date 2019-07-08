@@ -194,7 +194,7 @@ public class DisplayUser extends JFrame implements LabelLook,ActionListener,Mous
 		if(e.getSource()==butAdd)
 		{
 			setVisible(false);
-			frame = new AddHistory();
+			frame = new AddHistory(id);
 			frame.setVisible(true);
 		}
 		
