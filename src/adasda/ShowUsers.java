@@ -64,7 +64,7 @@ public class ShowUsers extends JFrame implements ActionListener,MouseListener{
 		tab.setModel(DbUtils.resultSetToTableModel(rs));
 	} catch (SQLException e) {
 		
-		JOptionPane.showInternalMessageDialog(null, e);
+		JOptionPane.showInternalMessageDialog(null, "Brak po³¹czenia z baz¹ danych");
 		e.printStackTrace();
 	}
 
@@ -108,8 +108,9 @@ public class ShowUsers extends JFrame implements ActionListener,MouseListener{
 		if(e.getSource()==tab)
 		{
 			int row =tab.getSelectedRow();
+			int id= (int) tab.getModel().getValueAt(row, 0);
 			DisplayUser du = new DisplayUser();
-			du.show(row);
+			du.show(id);
 			du.setVisible(true);
 			
 			

@@ -2,8 +2,11 @@ package adasda;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,10 +17,15 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 
-public class DisplayUser extends JFrame implements LabelLook,ActionListener{
+import net.proteanit.sql.DbUtils;
+
+public class DisplayUser extends JFrame implements LabelLook,ActionListener,MouseListener{
 	
 	private JLabel name, lastName, peselNumber , adress,city ,phoneNumber;
 	private JLabel pName , pLastName, pPeselNumber, pAdress, pCity, pPhoneNumber;
@@ -25,6 +33,9 @@ public class DisplayUser extends JFrame implements LabelLook,ActionListener{
 	private JPanel panel1 = new JPanel();
 	private JPanel panel2 = new JPanel();
 	private JButton butBack = new JButton("Powrót");
+	private JButton butAdd = new JButton("Dodaj");
+	private JTable tab = new JTable();
+	
 	Connection conn = null;
 	Statement stmt = null;
 	ResultSet rs = null;
@@ -64,53 +75,64 @@ public class DisplayUser extends JFrame implements LabelLook,ActionListener{
 	labelLook(pPeselNumber);
 	labelLook(pPhoneNumber);
 	
+	JPanel panel = new JPanel();
+	panel.setLayout(new GridLayout());
+	JScrollPane js = new JScrollPane(tab);
+	panel.add(js);
+	panel.setBackground(bgColor);
+	tab.addMouseListener(this);
+	panel.setBounds(140, 350, 550, 100);
+	
 	panel1.setLayout(new BoxLayout(panel1, BoxLayout.Y_AXIS));
 	panel1.setBackground(Color.LIGHT_GRAY);
 	panel1.add(name);
-	panel1.add(Box.createVerticalStrut(30));
+	panel1.add(Box.createVerticalStrut(20));
 	panel1.add(lastName);
-	panel1.add(Box.createVerticalStrut(30));
+	panel1.add(Box.createVerticalStrut(20));
 	panel1.add(peselNumber);
-	panel1.add(Box.createVerticalStrut(30));
+	panel1.add(Box.createVerticalStrut(20));
 	panel1.add(adress);
-	panel1.add(Box.createVerticalStrut(30));
+	panel1.add(Box.createVerticalStrut(20));
 	panel1.add(city);
-	panel1.add(Box.createVerticalStrut(30));
+	panel1.add(Box.createVerticalStrut(20));
 	panel1.add(phoneNumber);
 	
 	panel2.setLayout(new BoxLayout(panel2, BoxLayout.Y_AXIS));
 	panel2.setBackground(Color.LIGHT_GRAY);
 	panel2.add(pName);
-	panel2.add(Box.createVerticalStrut(30));
+	panel2.add(Box.createVerticalStrut(20));
 	panel2.add(pLastName);
-	panel2.add(Box.createVerticalStrut(30));
+	panel2.add(Box.createVerticalStrut(20));
 	panel2.add(pPeselNumber);
-	panel2.add(Box.createVerticalStrut(30));
+	panel2.add(Box.createVerticalStrut(20));
 	panel2.add(pAdress);
-	panel2.add(Box.createVerticalStrut(30));
+	panel2.add(Box.createVerticalStrut(20));
 	panel2.add(pCity);
-	panel2.add(Box.createVerticalStrut(30));
+	panel2.add(Box.createVerticalStrut(20));
 	panel2.add(pPhoneNumber);
 	
 	mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.X_AXIS));
 	mainPanel.add(panel1);
 	mainPanel.add(panel2);
 	mainPanel.setBackground(Color.LIGHT_GRAY);
-	mainPanel.setBounds(100, 50, 600, 500);
+	mainPanel.setBounds(140, 40, 550, 280);
+	
 	
 	butBack.setBounds(300, 580, 100, 50);
 	butBack.addActionListener(this);
 
 	add(butBack);
 	add(mainPanel);
+	add(panel);
 	
+	displayTable();
 	}
 	
 	public void show(int row)
 	{
 		try {
 			stmt=conn.createStatement();
-			String getName = "SELECT * FROM patients WHERE id='"+(row+1)+"' ";
+			String getName = "SELECT * FROM patients WHERE id='"+row+"' ";
 			rs=stmt.executeQuery(getName);
 			if(rs.next())
 			{
@@ -120,15 +142,29 @@ public class DisplayUser extends JFrame implements LabelLook,ActionListener{
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
+			JOptionPane.showInternalMessageDialog(null, "Brak po³¹czenia z baz¹ danych");
 			e.printStackTrace();
 		}
 
 		
 	}
+	
+	public void displayTable()
+	{
+		
+		try {
+			stmt=conn.createStatement();
+			rs=stmt.executeQuery("SELECT* FROM history");
+			tab.setModel(DbUtils.resultSetToTableModel(rs));
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 
 	@Override
 	public void labelLook(JLabel label) {
-		label.setFont(new Font("Arial" , Font.BOLD, 30));
+		label.setFont(new Font("Arial" , Font.BOLD, 20));
 		label.setForeground(Color.BLACK);
 		label.setSize(200, 10);
 	}
@@ -147,6 +183,36 @@ public class DisplayUser extends JFrame implements LabelLook,ActionListener{
 			setVisible(false);
 			
 		}
+		
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
 		
 	}
 

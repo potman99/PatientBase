@@ -15,12 +15,13 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class SearchUser extends JFrame implements ActionListener,LabelLook{
 	
-	private JLabel name, lastName, peselNumber , adress,city ,phoneNumber, icon , addUser;
+	private JLabel name, lastName, peselNumber , adress,city ,phoneNumber;
 	private JTextField tName, tLastName , tPeselNumber, tAdress,tCity, tPhoneNumber;
 	private JPanel labels,texts;
 	private JButton butSearch=new JButton("Szukaj");
@@ -138,7 +139,8 @@ public class SearchUser extends JFrame implements ActionListener,LabelLook{
 				
 				
 			} catch (SQLException e1) {
-				// TODO Auto-generated catch block
+				
+				JOptionPane.showInternalMessageDialog(null, "Brak po³¹czenia z baz¹ danych");
 				e1.printStackTrace();
 			}
 			

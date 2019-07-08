@@ -161,6 +161,7 @@ public class AddUser extends JFrame implements ActionListener,LabelLook{
 				
 			} catch (SQLException e1) {
 				// TODO Auto-generated catch block
+				JOptionPane.showInternalMessageDialog(null, "Brak po³¹czenia z baz¹ danych");
 				e1.printStackTrace();
 			}
 		}
