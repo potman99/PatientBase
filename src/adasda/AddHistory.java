@@ -11,12 +11,17 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextArea;
 
+import com.toedter.calendar.JCalendar;
+import com.toedter.calendar.JDateChooser;
+
 public class AddHistory extends JFrame implements ActionListener{
 
 		private JButton butAccept = new JButton("Akceptuj");
 		private JButton butCancel = new JButton("Anuluj");
 		private JTextArea textArea = new JTextArea();
 		private JLabel lbDate, lbDescrition;
+		JDateChooser calendar = new JDateChooser();
+
 	
 	public AddHistory() {
 		
@@ -32,14 +37,21 @@ public class AddHistory extends JFrame implements ActionListener{
 		lbDescrition = new JLabel("Opis wizyty");
 		lbDescrition.setFont(new Font("Arial" , Font.BOLD, 20));
 		lbDescrition.setForeground(Color.WHITE);
+		lbDate.setFont(new Font("Arial" , Font.BOLD, 20));
+		lbDate.setForeground(Color.WHITE);
 		
 		lbDescrition.setBounds(100, 30, 200, 30);
+		lbDate.setBounds(100, 400, 100, 30);
 		butAccept.setBounds(300, 580, 100, 50);
 		butAccept.addActionListener(this);
 		
 		butCancel.setBounds(450, 580, 100, 50);
 		butCancel.addActionListener(this);
 		
+		calendar.setBounds(170, 400, 180, 30);
+		
+		add(lbDate);
+		add(calendar);
 		add(butAccept);
 		add(butCancel);
 		add(textArea);

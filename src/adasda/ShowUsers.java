@@ -22,6 +22,8 @@ import javax.swing.JTable;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.table.DefaultTableModel;
 
+import com.toedter.calendar.JCalendar;
+
 import net.proteanit.sql.DbUtils;
 
 public class ShowUsers extends JFrame implements ActionListener,MouseListener{
@@ -30,7 +32,6 @@ public class ShowUsers extends JFrame implements ActionListener,MouseListener{
 	JButton butBack = new JButton();
 	JButton butOpen = new JButton();
 	JLabel head = new JLabel();
-	
 	Connection con= null;
 	Statement stmt= null;
 	ResultSet rs = null;

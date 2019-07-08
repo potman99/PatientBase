@@ -9,5 +9,6 @@
 	<classpathentry kind="lib" path="C:/Users/potma/Downloads/fg/mysql-connector-java-5.1.47/mysql-connector-java-5.1.47.jar"/>
 	<classpathentry kind="lib" path="C:/Users/potma/Downloads/fg/mysql-connector-java-5.1.47/mysql-connector-java-5.1.47-bin.jar"/>
 	<classpathentry kind="lib" path="C:/Users/potma/Downloads/rs2xml.jar"/>
+	<classpathentry kind="lib" path="C:/Users/potma/Downloads/lib/jcalendar-1.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
