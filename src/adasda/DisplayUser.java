@@ -35,12 +35,15 @@ public class DisplayUser extends JFrame implements LabelLook,ActionListener,Mous
 	private JButton butBack = new JButton("Powrót");
 	private JButton butAdd = new JButton("Dodaj");
 	private JTable tab = new JTable();
+	private JFrame frame;
+	private int id=0;
 	
 	Connection conn = null;
 	Statement stmt = null;
 	ResultSet rs = null;
 	
-	public DisplayUser() {
+	public DisplayUser(int id ) {
+		this.id=id;
 	Color bgColor = new Color(30,30,30);
 	setBounds(10, 10, 800, 700);
 	getContentPane().setBackground(bgColor);
@@ -120,12 +123,16 @@ public class DisplayUser extends JFrame implements LabelLook,ActionListener,Mous
 	
 	butBack.setBounds(300, 580, 100, 50);
 	butBack.addActionListener(this);
-
+	
+	butAdd.setBounds(450, 580, 100, 50);
+	butAdd.addActionListener(this);
+	
 	add(butBack);
+	add(butAdd);
 	add(mainPanel);
 	add(panel);
 	
-	displayTable();
+	displayTable(id);
 	}
 	
 	public void show(int row)
@@ -149,12 +156,12 @@ public class DisplayUser extends JFrame implements LabelLook,ActionListener,Mous
 		
 	}
 	
-	public void displayTable()
+	public void displayTable(int row)
 	{
 		
 		try {
 			stmt=conn.createStatement();
-			rs=stmt.executeQuery("SELECT* FROM history");
+			rs=stmt.executeQuery("SELECT idvisit AS 'ID_Wizyty', id AS 'ID_Pacjenta' , date AS 'Data' , description AS 'Opis' FROM history WHERE id='"+row+"' ");
 			tab.setModel(DbUtils.resultSetToTableModel(rs));
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -182,6 +189,13 @@ public class DisplayUser extends JFrame implements LabelLook,ActionListener,Mous
 		{
 			setVisible(false);
 			
+		}
+		
+		if(e.getSource()==butAdd)
+		{
+			setVisible(false);
+			frame = new AddHistory();
+			frame.setVisible(true);
 		}
 		
 	}

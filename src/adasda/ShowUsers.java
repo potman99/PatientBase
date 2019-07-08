@@ -109,7 +109,7 @@ public class ShowUsers extends JFrame implements ActionListener,MouseListener{
 		{
 			int row =tab.getSelectedRow();
 			int id= (int) tab.getModel().getValueAt(row, 0);
-			DisplayUser du = new DisplayUser();
+			DisplayUser du = new DisplayUser(id);
 			du.show(id);
 			du.setVisible(true);
 			
