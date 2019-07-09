@@ -153,7 +153,8 @@ public class AddUser extends JFrame implements ActionListener,LabelLook{
 			conn=DatabaseConnection.connection();
 			try {
 				stmt = conn.createStatement();
-				stmt.executeUpdate("INSERT INTO patients (name,lastname) values('"+tName.getText()+"','"+tLastName.getText()+"')");
+				stmt.executeUpdate("INSERT INTO patients (name,lastname,pesel,adres,city,phone) "
+						+ "values('"+tName.getText()+"','"+tLastName.getText()+"','"+tPeselNumber.getText()+"','"+tAdress.getText()+"','"+tCity.getText()+"','"+tPhoneNumber.getText()+"')");
 				JOptionPane.showMessageDialog(null, "Dodano Pacjenta");
 				this.setVisible(false);
 				Home home = new Home();

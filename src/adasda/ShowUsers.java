@@ -29,8 +29,7 @@ import net.proteanit.sql.DbUtils;
 public class ShowUsers extends JFrame implements ActionListener,MouseListener{
 	
 	JTable tab = new JTable();
-	JButton butBack = new JButton();
-	JButton butOpen = new JButton();
+	JButton butBack = new JButton("Powrót");
 	JLabel head = new JLabel();
 	Connection con= null;
 	Statement stmt= null;
@@ -46,7 +45,7 @@ public class ShowUsers extends JFrame implements ActionListener,MouseListener{
 	setLayout(null);
 	
 	
-	butBack.setBounds(200, 600, 50, 50);	
+	butBack.setBounds(350, 580, 100, 50);	
 	butBack.addActionListener(this);
 	
 	

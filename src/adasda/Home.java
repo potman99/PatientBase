@@ -100,7 +100,7 @@ public class Home extends JFrame implements ActionListener{
 		Object source = e.getSource();
 		if(source==addButton)
 		{
-		System.out.println("add");	
+	
 		frame = new AddUser();
 		frame.setVisible(true);
 		setVisible(false);
@@ -109,7 +109,7 @@ public class Home extends JFrame implements ActionListener{
 		}
 		if(source==searchButton)
 		{
-			System.out.println("search");
+			
 			frame = new SearchUser();
 			frame.setVisible(true);
 			setVisible(false);

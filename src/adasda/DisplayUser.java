@@ -34,6 +34,7 @@ public class DisplayUser extends JFrame implements LabelLook,ActionListener,Mous
 	private JPanel panel2 = new JPanel();
 	private JButton butBack = new JButton("Powrót");
 	private JButton butAdd = new JButton("Dodaj");
+	private JButton butDelete = new JButton("Usuñ");
 	private JTable tab = new JTable();
 	private JFrame frame;
 	private int id=0;
@@ -121,12 +122,16 @@ public class DisplayUser extends JFrame implements LabelLook,ActionListener,Mous
 	mainPanel.setBounds(140, 40, 550, 280);
 	
 	
-	butBack.setBounds(300, 580, 100, 50);
+	butBack.setBounds(240, 580, 100, 50);
 	butBack.addActionListener(this);
 	
-	butAdd.setBounds(450, 580, 100, 50);
+	butAdd.setBounds(360, 580, 100, 50);
 	butAdd.addActionListener(this);
 	
+	butDelete.setBounds(480, 580, 100, 50);
+	butDelete.addActionListener(this);
+	
+	add(butDelete);
 	add(butBack);
 	add(butAdd);
 	add(mainPanel);
@@ -145,6 +150,10 @@ public class DisplayUser extends JFrame implements LabelLook,ActionListener,Mous
 			{
 				pName.setText(rs.getString("name"));
 				pLastName.setText(rs.getString("lastname"));
+				pPeselNumber.setText(rs.getString("pesel"));
+				pAdress.setText(rs.getString("adres"));
+				pCity.setText(rs.getString("city"));
+				pPhoneNumber.setText(rs.getString("phone"));
 
 			}
 		} catch (SQLException e) {
@@ -198,11 +207,41 @@ public class DisplayUser extends JFrame implements LabelLook,ActionListener,Mous
 			frame.setVisible(true);
 		}
 		
+		if(e.getSource()==butDelete)
+		{
+			JOptionPane op = new JOptionPane();
+			int response = op.showConfirmDialog(null, "Czy napewno chcesz usun¹æ tego pacjenta?","Usuñ pacjenta",JOptionPane.YES_NO_OPTION);
+			if(response==JOptionPane.YES_OPTION)
+			{
+				conn = DatabaseConnection.connection();
+				try {
+					stmt = conn.createStatement();
+					stmt.executeUpdate("DELETE FROM patients WHERE id='"+id+"'");
+					JOptionPane.showMessageDialog(null, "Usuniêto pacjenta");
+					setVisible(false);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		}
+		
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
+		
+		if(e.getSource()==tab)
+		{
+			int row =tab.getSelectedRow();
+			int newId= (int) tab.getModel().getValueAt(row, 0);
+			AddHistory ah = new AddHistory(id);
+			ah.disableEditing();
+			ah.showHistory(newId);
+			ah.addUpdate(newId);
+			ah.deleteRecord(newId);
+			ah.setVisible(true);
+		}
 		
 	}
 
